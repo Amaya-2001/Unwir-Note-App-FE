@@ -1,7 +1,81 @@
 import React from "react";
+import styled from "styled-components";
 
-const NoteModal = ({ onClose }) => {
-  return <div></div>;
+const ModalContainer = styled.div`
+  background-color: #ffff;
+  width: 650px;
+  border-radius: 10px;
+  position: fixed;
+  top: 20px; /* Adjust this value to set the distance from the top */
+  left: 50%;
+  transform: translateX(-50%);
+`;
+const ModalTitle = styled.div`
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #15baa3;
+  margin-top: 10px;
+`;
+
+const ModalBody = styled.div`
+  display: flex;
+  align-item: center;
+  justify-content: center;
+  height: 300px;
+`;
+
+const BtnContainer = styled.button`
+  cursor: pointer;
+  top: 40px;
+  background-color: #040414;
+  color: #ffff;
+  width: 85px;
+  height: 45px;
+  border-radius: 5px;
+  margin-top: 60px;
+  margin-right: 15px;
+`;
+
+const ModelFooter = styled.div`
+  display: flex;
+  align-item: center;
+  justify-content: center;
+`;
+const NoteModal = ({ modalOpen, modalClose, title }) => {
+  return (
+    <ModalContainer>
+      <dialog id="noteModal" className="modal" open={modalOpen}>
+        <ModalContainer>
+          <ModalTitle>{title} Note</ModalTitle>
+          <ModalBody>
+            <form className="w-full max-w-sm">
+              <div className="flex items-center border-b border-teal-500 py-2 mt-10">
+                <input
+                  className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  type="text"
+                  placeholder="Title"
+                />
+              </div>
+              <div className="flex items-center border-b border-teal-500 py-2 mt-10">
+                <input
+                  className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  type="text"
+                  placeholder="Description"
+                />
+              </div>
+              <ModelFooter>
+                <div className="modal-action">
+                  <BtnContainer>Save</BtnContainer>
+                  <BtnContainer onClick={modalClose}>Close</BtnContainer>
+                </div>
+              </ModelFooter>
+            </form>
+          </ModalBody>
+        </ModalContainer>
+      </dialog>
+    </ModalContainer>
+  );
 };
 
 export default NoteModal;

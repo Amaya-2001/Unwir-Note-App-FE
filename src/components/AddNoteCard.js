@@ -1,35 +1,41 @@
 import React, { useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import styled from "styled-components";
 import NoteModal from "./NoteModal";
 
 const AddNewIcon = styled.div`
   position: absolute;
   right: 180px;
-  top: 15px;
+  bottom: 120px;
   cursor: pointer;
 `;
-const AddNoteCard = () => {
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
-  const handleNoteModal = () => {
-    setIsNoteModalOpen(true);
-  };
-  const handleCloseNoteModal = () => {
-    setIsNoteModalOpen(true);
+const AddNewBtn = styled.button`
+  background-color: #040414;
+  color: #ffff;
+  width: 145px;
+  height: 45px;
+  border-radius: 5px;
+`;
+const AddNoteCard = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const hadleModalClose = () => {
+    const modalDiv = document.getElementById("noteModal");
+    if (modalDiv != null) {
+      modalDiv.style.display = "block";
+    }
   };
   return (
     <>
       <AddNewIcon>
-        <AiOutlinePlusCircle
-          size={60}
-          style={{ color: "#040414" }}
-          onClick={handleNoteModal}
-        />
+        <AddNewBtn onClick={() => setModalOpen(true)}>Add New Note</AddNewBtn>
       </AddNewIcon>
-      {isNoteModalOpen && (
-        <NoteModal onClose={handleCloseNoteModal}></NoteModal>
-      )}
+      <NoteModal
+        modalOpen={modalOpen}
+        title="ADD"
+        setModalOpen={setModalOpen}
+        modalClose={hadleModalClose}
+      ></NoteModal>
     </>
   );
 };
