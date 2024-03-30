@@ -39,12 +39,12 @@ const NoteCard = ({ note }) => {
   //   }
   // };
 
-  const hadleModalClose = () => {
-    const modalDiv = document.getElementById("noteModal");
-    if (modalDiv != null) {
-      modalDiv.style.display = "block";
-    }
-  };
+  // const hadleModalClose = () => {
+  //   const modalDiv = document.getElementById("noteModal");
+  //   if (modalDiv != null) {
+  //     modalDiv.style.display = "block";
+  //   }
+  // };
 
   const handleDelete = async () => {
     try {
@@ -80,12 +80,13 @@ const NoteCard = ({ note }) => {
         </ButtonsContainer>
       </div>
       <NoteModal
+        note={note}
         modalOpen={modalOpen}
         title={note.title}
         noteDescription={note.description}
         topic="UPDATE"
         setModalOpen={setModalOpen}
-        modalClose={hadleModalClose}
+        // modalClose={hadleModalClose}
       ></NoteModal>
     </CardContainer>
   );

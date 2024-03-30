@@ -45,37 +45,39 @@ const ModelFooter = styled.div`
 `;
 const NoteModal = ({
   modalOpen,
-  modalClose,
+  setModalOpen,
   topic,
   note,
   title,
   noteDescription,
 }) => {
-  const [noteTitle, setNoteTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [noteTitle, setNoteTitle] = useState(title ? title : "");
+  const [description, setDescription] = useState(
+    noteDescription ? noteDescription : ""
+  );
 
   const handleSaveNote = async () => {
     if (topic === "ADD") {
       try {
-        console.log("topic", topic);
         const response = await axios.post("http://localhost:8000/create/note", {
           title: noteTitle,
           description: description,
         });
-        console.log("response", response);
       } catch (error) {
         console.error(error);
       }
     } else if (topic === "UPDATE") {
+      debugger;
       try {
-        const response = await axios.put(
-          `http://localhost:8000/update/note/${note._id}`,
-          {
-            title: noteTitle,
-            description: description,
-          }
-        );
-        console.log("response in update", response);
+        if (note) {
+          const response = await axios.put(
+            `http://localhost:8000/update/note/${note._id}`,
+            {
+              title: noteTitle,
+              description: description,
+            }
+          );
+        }
       } catch (error) {
         console.error(error);
       }
@@ -97,7 +99,6 @@ const NoteModal = ({
                   type="text"
                   placeholder="Title"
                   value={noteTitle}
-                  defaultValue={title}
                   onChange={(event) => setNoteTitle(event.target.value)}
                 />
               </div>
@@ -107,14 +108,15 @@ const NoteModal = ({
                   type="text"
                   placeholder="Description"
                   value={description}
-                  defaultValue={noteDescription}
                   onChange={(event) => setDescription(event.target.value)}
                 />
               </div>
               <ModelFooter>
                 <div className="modal-action">
                   <BtnContainer onClick={handleSaveNote}>Save</BtnContainer>
-                  <BtnContainer onClick={modalClose}>Close</BtnContainer>
+                  <BtnContainer onClick={() => setModalOpen(false)}>
+                    Close
+                  </BtnContainer>
                 </div>
               </ModelFooter>
             </form>

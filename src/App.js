@@ -8,6 +8,7 @@ function App() {
 
   useEffect(() => {
     getAllNotes();
+    console.log("notes", notes);
   }, []);
 
   const getAllNotes = async () => {
