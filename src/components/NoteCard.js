@@ -46,7 +46,14 @@ const NoteCard = ({ note }) => {
     }
   };
 
-  const notify = () => toast.success("Delete Successfully!");
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/delete/note/${note._id}`);
+      toast.success("Delete Successfully!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <CardContainer className="card w-64 rounded-xl overflow-hidden shadow-lg">
@@ -64,7 +71,11 @@ const NoteCard = ({ note }) => {
           />
         </ButtonsContainer>
         <ButtonsContainer>
-          <FaTrash size={20} style={{ color: "#040414" }} onClick={notify} />
+          <FaTrash
+            size={20}
+            style={{ color: "#040414" }}
+            onClick={handleDelete}
+          />
           <ToastContainer theme="dark" />
         </ButtonsContainer>
       </div>
