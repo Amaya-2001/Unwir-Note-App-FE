@@ -5,13 +5,13 @@ import NoteModal from "./NoteModal";
 const AddNewIcon = styled.div`
   position: absolute;
   right: 180px;
-  bottom: 120px;
+  top: 45px;
   cursor: pointer;
 `;
 
 const AddNewBtn = styled.button`
-  background-color: #040414;
-  color: #ffff;
+  text-transform: uppercase;
+  color: #15baa3;
   width: 145px;
   height: 45px;
   border-radius: 5px;
@@ -32,7 +32,7 @@ const AddNoteCard = () => {
       </AddNewIcon>
       <NoteModal
         modalOpen={modalOpen}
-        title="ADD"
+        topic="ADD"
         setModalOpen={setModalOpen}
         modalClose={hadleModalClose}
       ></NoteModal>

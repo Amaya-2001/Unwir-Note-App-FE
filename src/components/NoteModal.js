@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ModalContainer = styled.div`
@@ -42,12 +43,52 @@ const ModelFooter = styled.div`
   align-item: center;
   justify-content: center;
 `;
-const NoteModal = ({ modalOpen, modalClose, title }) => {
+const NoteModal = ({
+  modalOpen,
+  modalClose,
+  topic,
+  note,
+  title,
+  noteDescription,
+}) => {
+  const [noteTitle, setNoteTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSaveNote = async () => {
+    if (topic === "ADD") {
+      try {
+        console.log("topic", topic);
+        const response = await axios.post("http://localhost:8000/create/note", {
+          title: noteTitle,
+          description: description,
+        });
+        console.log("response", response);
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (topic === "UPDATE") {
+      try {
+        const response = await axios.put(
+          `http://localhost:8000/update/note/${note._id}`,
+          {
+            title: noteTitle,
+            description: description,
+          }
+        );
+        console.log("response in update", response);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.error("Error occured while saving");
+    }
+  };
+
   return (
     <ModalContainer>
       <dialog id="noteModal" className="modal" open={modalOpen}>
         <ModalContainer>
-          <ModalTitle>{title} Note</ModalTitle>
+          <ModalTitle>{topic} Note</ModalTitle>
           <ModalBody>
             <form className="w-full max-w-sm">
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
@@ -55,6 +96,9 @@ const NoteModal = ({ modalOpen, modalClose, title }) => {
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Title"
+                  value={noteTitle}
+                  defaultValue={title}
+                  onChange={(event) => setNoteTitle(event.target.value)}
                 />
               </div>
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
@@ -62,11 +106,14 @@ const NoteModal = ({ modalOpen, modalClose, title }) => {
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Description"
+                  value={description}
+                  defaultValue={noteDescription}
+                  onChange={(event) => setDescription(event.target.value)}
                 />
               </div>
               <ModelFooter>
                 <div className="modal-action">
-                  <BtnContainer>Save</BtnContainer>
+                  <BtnContainer onClick={handleSaveNote}>Save</BtnContainer>
                   <BtnContainer onClick={modalClose}>Close</BtnContainer>
                 </div>
               </ModelFooter>
