@@ -59,7 +59,7 @@ const NoteModal = ({
   const handleSaveNote = async () => {
     if (topic === "ADD") {
       try {
-        const response = await axios.post("http://localhost:8000/create/note", {
+        await axios.post("http://localhost:8000/create/note", {
           title: noteTitle,
           description: description,
         });
@@ -70,13 +70,10 @@ const NoteModal = ({
       debugger;
       try {
         if (note) {
-          const response = await axios.put(
-            `http://localhost:8000/update/note/${note._id}`,
-            {
-              title: noteTitle,
-              description: description,
-            }
-          );
+          await axios.put(`http://localhost:8000/update/note/${note._id}`, {
+            title: noteTitle,
+            description: description,
+          });
         }
       } catch (error) {
         console.error(error);

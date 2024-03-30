@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NoteImg from "../assets/noteImg.png";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styled from "styled-components";
