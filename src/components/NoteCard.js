@@ -3,8 +3,8 @@ import NoteImg from "../assets/noteImg.png";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styled from "styled-components";
 import NoteModal from "./NoteModal";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const CardContainer = styled.div`
@@ -20,36 +20,14 @@ const ButtonsContainer = styled.div`
   cursor: pointer;
 `;
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({ note, onDelete }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
-  // useEffect(() => {
-  //   getNote();
-  // });
-
-  // const getNote = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8000/get/note/${note._id}`
-  //     );
-  //     setNoteTitle(response.data.title);
-  //     setDescription(response.data.description);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const hadleModalClose = () => {
-  //   const modalDiv = document.getElementById("noteModal");
-  //   if (modalDiv != null) {
-  //     modalDiv.style.display = "block";
-  //   }
-  // };
 
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:8000/delete/note/${note._id}`);
       toast.success("Delete Successfully!");
+      onDelete();
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +54,6 @@ const NoteCard = ({ note }) => {
             style={{ color: "#040414" }}
             onClick={handleDelete}
           />
-          <ToastContainer theme="dark" />
         </ButtonsContainer>
       </div>
       <NoteModal
@@ -86,8 +63,8 @@ const NoteCard = ({ note }) => {
         noteDescription={note.description}
         topic="UPDATE"
         setModalOpen={setModalOpen}
-        // modalClose={hadleModalClose}
       ></NoteModal>
+      <ToastContainer theme="dark" />
     </CardContainer>
   );
 };

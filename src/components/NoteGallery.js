@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NoteCard from "./NoteCard";
 import "../style/note-gallery.css";
 import AddNoteCard from "./AddNoteCard";
 import styled from "styled-components";
+import axios from "axios";
 
 const GridContainer = styled.div`
   display: grid;
@@ -28,57 +29,39 @@ const GridItem = styled.div`
   }
 `;
 
-const NoteGallery = ({ notes }) => {
-  const [noteList, setNoteList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const loaderRef = useRef(null);
+const NoteGallery = () => {
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    setNoteList(notes.slice(0, 8));
-  }, [notes]);
+    getAllNotes();
+  }, []);
 
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.1,
-    };
-    const observer = new IntersectionObserver(handleIntersection, options);
-    observer.observe(loaderRef.current);
-
-    return () => observer.disconnect();
-  }, [loaderRef]);
-
-  const handleIntersection = (entries) => {
-    const entry = entries[0];
-    if (entry.isIntersecting) {
-      setCurrentPage((prevPage) => prevPage + 1);
+  const getAllNotes = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/get/notes");
+      const allNotes = response.data;
+      setNotes(allNotes);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  useEffect(() => {
-    if (currentPage > 1) {
-      const startIndex = (currentPage - 1) * 8;
-      const endIndex = currentPage * 8;
-      const newNoteList = notes.slice(startIndex, endIndex);
-      setNoteList((firstNoteSet) => [...firstNoteSet, ...newNoteList]);
-    }
-  }, [currentPage, notes]);
+  const onDelete = async () => {
+    getAllNotes();
+  };
 
   return (
     <div>
       <div className="container">
         <AddNoteCard />
-
         <GridContainer>
           {" "}
-          {noteList.map((note) => (
+          {notes.map((note) => (
             <GridItem key={note._id}>
-              <NoteCard note={note} />
+              <NoteCard note={note} onDelete={onDelete} />
             </GridItem>
           ))}
         </GridContainer>
-        <div ref={loaderRef} />
       </div>
     </div>
   );

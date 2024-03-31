@@ -67,7 +67,6 @@ const NoteModal = ({
         console.error(error);
       }
     } else if (topic === "UPDATE") {
-      debugger;
       try {
         if (note) {
           await axios.put(`http://localhost:8000/update/note/${note._id}`, {

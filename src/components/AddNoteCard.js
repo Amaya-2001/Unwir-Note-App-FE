@@ -25,6 +25,7 @@ const AddNoteCard = () => {
       modalDiv.style.display = "block";
     }
   };
+
   return (
     <>
       <AddNewIcon>
