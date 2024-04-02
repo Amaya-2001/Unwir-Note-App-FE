@@ -12,6 +12,30 @@ const AddNewBtn = styled.button`
   border-radius: 5px;
 `;
 
+const AddNoteBtn = styled.button`
+  display: none;
+
+  @media (max-width: 600px) {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #15baa3;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 30px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 40px #14b8a6;
+    }
+  }
+`;
+
 const Navbar = styled.nav`
   position: fixed;
   top: 0;
@@ -93,6 +117,7 @@ const AddNoteCard = ({ fetchNotes }) => {
         setModalOpen={setModalOpen}
         modalClose={hadleModalClose}
       ></NoteModal>
+      <AddNoteBtn onClick={() => setModalOpen(true)}>+</AddNoteBtn>
     </>
   );
 };

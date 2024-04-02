@@ -10,6 +10,13 @@ const ModalContainer = styled.div`
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
+
+  @media (max-width: 600px) {
+    display: flex;
+    align-item: center;
+    justify-content: center;
+    width: 275px;
+  }
 `;
 const ModalTitle = styled.div`
   font-size: 24px;
@@ -17,6 +24,10 @@ const ModalTitle = styled.div`
   text-transform: uppercase;
   color: #15baa3;
   margin-top: 10px;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 const ModalBody = styled.div`
@@ -24,6 +35,10 @@ const ModalBody = styled.div`
   align-item: center;
   justify-content: center;
   height: 300px;
+
+  @media (max-width: 600px) {
+    margin-right: 50px;
+  }
 `;
 
 const BtnContainer = styled.button`
@@ -34,19 +49,55 @@ const BtnContainer = styled.button`
   width: 85px;
   height: 45px;
   border-radius: 5px;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-right: 15px;
+
+  @media (max-width: 600px) {
+    width: 60px;
+    height: 40px;
+    margin-top: 40px;
+  }
 `;
 
 const ModelFooter = styled.div`
   display: flex;
   align-item: center;
   justify-content: center;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 const ErrorMsg = styled.div`
   color: red;
   font-size: 12px;
+
+  @media (max-width: 600px) {
+    font-size: 10px;
+  }
+`;
+
+const StyledInput = styled.input`
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  color: #000;
+  font-size: 16px;
+  padding: 8px;
+
+  ::placeholder {
+    color: #999;
+    font-size: 16px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+    ::placeholder {
+      font-size: 12px;
+    }
+  }
 `;
 
 const NoteModal = ({
@@ -121,25 +172,25 @@ const NoteModal = ({
           <ModalBody>
             <form className="w-full max-w-sm">
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
-                <input
+                <StyledInput
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Title"
                   value={noteTitle}
                   onChange={(event) => setNoteTitle(event.target.value)}
                 />
-                <ErrorMsg>{titleError}</ErrorMsg>
               </div>
+              <ErrorMsg>{titleError}</ErrorMsg>
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
-                <input
+                <StyledInput
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Description"
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
                 />
-                <ErrorMsg>{descriptionError}</ErrorMsg>
               </div>
+              <ErrorMsg>{descriptionError}</ErrorMsg>
               <ModelFooter>
                 <div className="modal-action">
                   <BtnContainer

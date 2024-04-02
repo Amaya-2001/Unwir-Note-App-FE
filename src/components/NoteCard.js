@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NoteImg from "../assets/noteImg.png";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styled from "styled-components";
 import NoteModal from "./NoteModal";
@@ -16,6 +15,11 @@ const CardContainer = styled.div`
   height: 100%;
   border: 3px solid #0c5f5e;
   color: #ffff;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 40px #14b8a6;
+  }
 
   @media (max-width: 600px) {
     display: flex;
@@ -44,7 +48,6 @@ const NoteCard = ({ note, onDelete }) => {
 
   return (
     <CardContainer className="card w-64 rounded-xl overflow-hidden shadow-lg">
-      {/* <img className="w-full" src={NoteImg} alt="Sunset in the mountains" /> */}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{note.title}</div>
         <p className="text-700 text-base" style={{ color: "#ffff" }}>
