@@ -6,15 +6,23 @@ import NoteModal from "./NoteModal";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import DeleteModal from "./DeleteModal";
 
 const CardContainer = styled.div`
-  background-color: #c9eee9;
+  background-color: #040414;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  border: 3px solid #0c5f5e;
+  color: #ffff;
+
+  @media (max-width: 600px) {
+    display: flex;
+    align-item: center;
+    justify-content: center;
+    margin-left: 20px;
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -39,22 +47,25 @@ const NoteCard = ({ note, onDelete }) => {
       <img className="w-full" src={NoteImg} alt="Sunset in the mountains" />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{note.title}</div>
-        <p className="text-gray-700 text-base">{note.description}</p>
+        <p className="text-700 text-base" style={{ color: "#ffff" }}>
+          {note.description}
+        </p>
       </div>
       <div className="flex justify-between px-6 pt-4 pb-2">
         <ButtonsContainer>
           <FaEdit
             size={20}
-            style={{ color: "#040414" }}
+            style={{ color: "#14B8A6" }}
             onClick={() => setModalOpen(true)}
           />
         </ButtonsContainer>
         <ButtonsContainer>
           <FaTrash
             size={20}
-            style={{ color: "#040414" }}
+            style={{ color: "#14B8A6" }}
             onClick={handleDelete}
           />
+          <ToastContainer theme="dark" />
         </ButtonsContainer>
       </div>
       <NoteModal
@@ -65,8 +76,6 @@ const NoteCard = ({ note, onDelete }) => {
         topic="UPDATE"
         setModalOpen={setModalOpen}
       ></NoteModal>
-      <DeleteModal setDeleteModal={handleDelete}></DeleteModal>
-      <ToastContainer theme="dark" />
     </CardContainer>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import NoteModal from "./NoteModal";
-
+import logo from "../assets/logo.png";
+import "../style/note-gallery.css";
 // const AddNewIcon = styled.div`
 //   position: absolute;
 //   right: 180px;
@@ -44,12 +45,11 @@ const AddNoteCard = () => {
             href="https://flowbite.com/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Flowbite Logo"
-            />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <img src={logo} className="logo-img h-8" alt="Logo" />
+            <span
+              className="self-center text-2xl font-semibold whitespace-nowrap"
+              style={{ color: "#14B8A6" }}
+            >
               Unwir
             </span>
           </a>

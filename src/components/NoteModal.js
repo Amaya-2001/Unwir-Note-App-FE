@@ -7,7 +7,7 @@ const ModalContainer = styled.div`
   width: 650px;
   border-radius: 10px;
   position: fixed;
-  top: 20px; /* Adjust this value to set the distance from the top */
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
 `;
