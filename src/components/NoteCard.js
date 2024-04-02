@@ -6,6 +6,7 @@ import NoteModal from "./NoteModal";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import DeleteModal from "./DeleteModal";
 
 const CardContainer = styled.div`
   background-color: #c9eee9;
@@ -64,6 +65,7 @@ const NoteCard = ({ note, onDelete }) => {
         topic="UPDATE"
         setModalOpen={setModalOpen}
       ></NoteModal>
+      <DeleteModal setDeleteModal={handleDelete}></DeleteModal>
       <ToastContainer theme="dark" />
     </CardContainer>
   );
