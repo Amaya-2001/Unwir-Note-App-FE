@@ -5,6 +5,7 @@ import NoteModal from "./NoteModal";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import DeleteModal from "./DeleteModal";
 
 const CardContainer = styled.div`
   background-color: #040414;
@@ -35,6 +36,7 @@ const ButtonsContainer = styled.div`
 
 const NoteCard = ({ note, onDelete }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -66,7 +68,7 @@ const NoteCard = ({ note, onDelete }) => {
           <FaTrash
             size={20}
             style={{ color: "#14B8A6" }}
-            onClick={handleDelete}
+            onClick={() => setDeleteModalOpen(true)}
           />
           <ToastContainer theme="dark" />
         </ButtonsContainer>
@@ -80,6 +82,11 @@ const NoteCard = ({ note, onDelete }) => {
         fetchNotes={onDelete}
         setModalOpen={setModalOpen}
       ></NoteModal>
+      <DeleteModal
+        setDeleteModalOpen={setDeleteModalOpen}
+        deleteModalOpen={deleteModalOpen}
+        handleDelete={handleDelete}
+      ></DeleteModal>
     </CardContainer>
   );
 };
