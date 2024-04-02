@@ -1,7 +1,9 @@
 .container {
   background-color: #040414;
-  border-radius: 10px;
-  width: 80%;
+  padding-top: 80px;
+  width:100%;
+  /* border-radius: 10px;
+  width: 100%;
   max-height: 100vh;
   align-items: center;
   justify-content: center;
@@ -10,9 +12,16 @@
   border: 3px solid #0c5f5e;
   overflow-y: auto;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
 }
 
 .card {
   background-color: #c9eee9;
 }
+
+/* @media only screen and (max-width: 600px) {
+  .container {background-color: #040414;}
+}
+@media only screen and (min-width: 992px) {
+  .container {background-color: #040414;}
+} */
