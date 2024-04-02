@@ -74,6 +74,7 @@ const NoteCard = ({ note, onDelete }) => {
         title={note.title}
         noteDescription={note.description}
         topic="UPDATE"
+        fetchNotes={onDelete}
         setModalOpen={setModalOpen}
       ></NoteModal>
     </CardContainer>

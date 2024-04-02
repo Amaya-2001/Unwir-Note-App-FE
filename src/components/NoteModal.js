@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const ModalContainer = styled.div`
@@ -43,42 +43,73 @@ const ModelFooter = styled.div`
   align-item: center;
   justify-content: center;
 `;
+
+const ErrorMsg = styled.div`
+  color: red;
+  font-size: 12px;
+`;
+
 const NoteModal = ({
   modalOpen,
   setModalOpen,
   topic,
   note,
   title,
+  fetchNotes,
   noteDescription,
 }) => {
   const [noteTitle, setNoteTitle] = useState(title ? title : "");
   const [description, setDescription] = useState(
     noteDescription ? noteDescription : ""
   );
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
 
-  const handleSaveNote = async () => {
-    if (topic === "ADD") {
-      try {
-        await axios.post("http://localhost:8000/create/note", {
-          title: noteTitle,
-          description: description,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    } else if (topic === "UPDATE") {
-      try {
-        if (note) {
-          await axios.put(`http://localhost:8000/update/note/${note._id}`, {
+  useEffect(() => {
+    if (noteTitle === "") {
+      setTitleError("Title is Required");
+    } else {
+      setTitleError("");
+    }
+    if (description === "") {
+      setDescriptionError("Description is required");
+    } else {
+      setDescriptionError("");
+    }
+  }, [noteTitle, description]);
+
+  const handleSaveNote = async (e) => {
+    const isValid = !titleError && !descriptionError;
+    if (isValid) {
+      if (topic === "ADD") {
+        try {
+          await axios.post("http://localhost:8000/create/note", {
             title: noteTitle,
             description: description,
           });
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
+      } else if (topic === "UPDATE") {
+        try {
+          if (note) {
+            await axios.put(`http://localhost:8000/update/note/${note._id}`, {
+              title: noteTitle,
+              description: description,
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        console.error("Error occured while saving");
       }
-    } else {
-      console.error("Error occured while saving");
+      setNoteTitle("");
+      setDescription("");
+      if (fetchNotes) {
+        await fetchNotes();
+      }
+      setModalOpen(false);
     }
   };
 
@@ -97,6 +128,7 @@ const NoteModal = ({
                   value={noteTitle}
                   onChange={(event) => setNoteTitle(event.target.value)}
                 />
+                <ErrorMsg>{titleError}</ErrorMsg>
               </div>
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
                 <input
@@ -106,11 +138,24 @@ const NoteModal = ({
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
                 />
+                <ErrorMsg>{descriptionError}</ErrorMsg>
               </div>
               <ModelFooter>
                 <div className="modal-action">
-                  <BtnContainer onClick={handleSaveNote}>Save</BtnContainer>
-                  <BtnContainer onClick={() => setModalOpen(false)}>
+                  <BtnContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSaveNote(e);
+                    }}
+                  >
+                    Save
+                  </BtnContainer>
+                  <BtnContainer
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setModalOpen(false);
+                    }}
+                  >
                     Close
                   </BtnContainer>
                 </div>

@@ -53,7 +53,7 @@ const NoteGallery = () => {
   return (
     <div>
       <div className="container">
-        <AddNoteCard />
+        <AddNoteCard fetchNotes={onDelete} />
         <GridContainer>
           {" "}
           {notes.map((note) => (

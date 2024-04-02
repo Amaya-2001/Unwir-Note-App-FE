@@ -3,12 +3,6 @@ import styled from "styled-components";
 import NoteModal from "./NoteModal";
 import logo from "../assets/logo.png";
 import "../style/note-gallery.css";
-// const AddNewIcon = styled.div`
-//   position: absolute;
-//   right: 180px;
-//   top: 45px;
-//   cursor: pointer;
-// `;
 
 const AddNewBtn = styled.button`
   text-transform: uppercase;
@@ -27,7 +21,7 @@ const Navbar = styled.nav`
   z-index: 1000; /* Ensure it's above other content */
 `;
 
-const AddNoteCard = () => {
+const AddNoteCard = ({ fetchNotes }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const hadleModalClose = () => {
@@ -70,9 +64,9 @@ const AddNoteCard = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>
@@ -88,12 +82,8 @@ const AddNoteCard = () => {
           </div>
         </div>
       </Navbar>
-      {/* <AddNewIcon>
-        <AddNewBtn onClick={() => setModalOpen(true)}>
-          Add New Note
-        </AddNewBtn>
-      </AddNewIcon> */}
       <NoteModal
+        fetchNotes={fetchNotes}
         modalOpen={modalOpen}
         topic="ADD"
         setModalOpen={setModalOpen}
