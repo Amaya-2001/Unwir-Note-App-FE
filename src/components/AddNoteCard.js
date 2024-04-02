@@ -17,8 +17,12 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #010713; /* Adjust as needed */
-  z-index: 1000; /* Ensure it's above other content */
+  background-color: #010713;
+  z-index: 1000;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const AddNoteCard = ({ fetchNotes }) => {
