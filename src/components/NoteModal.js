@@ -12,9 +12,6 @@ const ModalContainer = styled.div`
   transform: translateX(-50%);
 
   @media (max-width: 600px) {
-    display: flex;
-    align-item: center;
-    justify-content: center;
     width: 275px;
   }
 `;
@@ -78,6 +75,16 @@ const ErrorMsg = styled.div`
   }
 `;
 
+const FormStyled = styled.form`
+  width: 500px;
+
+  @media (max-width: 600px) {
+    font-size: 10px;
+    width: 250px;
+    margin-left: 40px;
+  }
+`;
+
 const StyledInput = styled.input`
   appearance: none;
   background-color: transparent;
@@ -138,6 +145,8 @@ const NoteModal = ({
             title: noteTitle,
             description: description,
           });
+          setNoteTitle("");
+          setDescription("");
         } catch (error) {
           console.error(error);
         }
@@ -155,8 +164,7 @@ const NoteModal = ({
       } else {
         console.error("Error occured while saving");
       }
-      setNoteTitle("");
-      setDescription("");
+
       if (fetchNotes) {
         await fetchNotes();
       }
@@ -170,7 +178,7 @@ const NoteModal = ({
         <ModalContainer>
           <ModalTitle>{topic} Note</ModalTitle>
           <ModalBody>
-            <form className="w-full max-w-sm">
+            <FormStyled>
               <div className="flex items-center border-b border-teal-500 py-2 mt-10">
                 <StyledInput
                   className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -211,7 +219,7 @@ const NoteModal = ({
                   </BtnContainer>
                 </div>
               </ModelFooter>
-            </form>
+            </FormStyled>
           </ModalBody>
         </ModalContainer>
       </dialog>

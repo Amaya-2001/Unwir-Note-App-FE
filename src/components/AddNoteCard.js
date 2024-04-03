@@ -26,9 +26,10 @@ const AddNoteBtn = styled.button`
     height: 60px;
     border-radius: 50%;
     font-size: 30px;
-    border: none;
+    border: 3px solid #0c5f5e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    margin-right: 5px;
 
     &:hover {
       box-shadow: 0 0 40px #14b8a6;
@@ -117,7 +118,9 @@ const AddNoteCard = ({ fetchNotes }) => {
         setModalOpen={setModalOpen}
         modalClose={hadleModalClose}
       ></NoteModal>
-      <AddNoteBtn onClick={() => setModalOpen(true)}>+</AddNoteBtn>
+      <AddNoteBtn onClick={() => setModalOpen(true)}>
+        <div className="mb-2">+</div>
+      </AddNoteBtn>
     </>
   );
 };
