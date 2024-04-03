@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import DeleteModal from "./DeleteModal";
+import { API_URL } from "../config.js";
 
 const CardContainer = styled.div`
   background-color: #040414;
@@ -40,7 +41,7 @@ const NoteCard = ({ note, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8000/delete/note/${note._id}`);
+      await axios.delete(`${API_URL}/delete/note/${note._id}`);
       toast.success("Delete Successfully!");
       onDelete();
     } catch (error) {

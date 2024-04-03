@@ -4,6 +4,7 @@ import "../style/note-gallery.css";
 import AddNoteCard from "./AddNoteCard";
 import styled from "styled-components";
 import axios from "axios";
+import { API_URL } from "../config.js";
 
 const GridContainer = styled.div`
   display: grid;
@@ -38,7 +39,7 @@ const NoteGallery = () => {
 
   const getAllNotes = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/get/notes");
+      const response = await axios.get(`${API_URL}/get/notes`);
       const allNotes = response.data;
       setNotes(allNotes);
     } catch (error) {

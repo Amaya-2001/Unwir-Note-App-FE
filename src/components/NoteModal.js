@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { API_URL } from "../config.js";
 
 const ModalContainer = styled.div`
   background-color: #ffff;
@@ -141,7 +142,7 @@ const NoteModal = ({
     if (isValid) {
       if (topic === "ADD") {
         try {
-          await axios.post("http://localhost:8000/create/note", {
+          await axios.post(`${API_URL}/create/note`, {
             title: noteTitle,
             description: description,
           });
@@ -153,7 +154,7 @@ const NoteModal = ({
       } else if (topic === "UPDATE") {
         try {
           if (note) {
-            await axios.put(`http://localhost:8000/update/note/${note._id}`, {
+            await axios.put(`${API_URL}/update/note/${note._id}`, {
               title: noteTitle,
               description: description,
             });
